@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     console.log("Doc loaded");
     setTimeout(() => {
 	var elem = document.getElementById('clock');
-	elem.html(timeout);
+	elem.value(timeout);
 	timeout--;
     }, 1);
 });

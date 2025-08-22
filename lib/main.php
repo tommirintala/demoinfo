@@ -143,7 +143,7 @@ class Application {
                         ]),
                     ]),
                 ]),
-                atag('div', ['class' => 'container app'], [
+                atag('div', ['class' => 'alert-success'], [
                     $file
                 ]),
             ]),

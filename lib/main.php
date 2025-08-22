@@ -91,7 +91,7 @@ class Application {
 
     public function html_footer(): void
     {
-        print atag('footer', ['class' => 'footer text-center'], [
+        print atag('footer', ['class' => 'footer text-center bg-dark'], [
             atag('div', ['class' => 'container'], [
                 atag('p', ['class' => 'text-muted'], [
                     '&copy; 2025 Tommi Rintala <em>tommi.rintala@vamk.fi</em>'
@@ -103,7 +103,7 @@ class Application {
     public function html_body(): void
     {
         global $pages;
-        print atag('body', ['class' => 'light-bg'], [
+        print atag('body', ['class' => 'd-flex h-100 text-center text-bg-dark'], [
             atag('div', ['class' => 'container'], [
                 atag('h1', ['class' => 'h1'], [
                     $pages[$this->_id]['title'] 

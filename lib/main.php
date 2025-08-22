@@ -67,10 +67,13 @@ class Application {
                 'integrity'=>"sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q",
                 'crossorigin'=>"anonymous"
             ]),
+            // atag('script', ['src' => "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"], []),
             comment('Custom stylesheet'),
             atag('link', ['rel' => 'stylesheet',
                           'href' => 'css/style.css'],
-                 []),
+                 []),           
+            atag('script', ['src' => 'js/clock.js'], []),
+                
         ]);
         /*
           <html lang="en">

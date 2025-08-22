@@ -43,6 +43,7 @@ class Application {
     
     public function html_head(): void
     {
+        $url = str_replace($_SERVER['REQUEST_QUERY'], '', $_SERVER['REQUEST_URI']);
         print "<!DOCTYPE html>";
         print '<html lang="en">';
         print atag('head', [], [
@@ -54,7 +55,7 @@ class Application {
             comment('Do automatic refresh to next page'),
             tag('meta', ['http-equiv' => 'refresh',
                          'content' => sprintf("%d; url=%s?next=%s", 15,
-                                              $_SERVER['REQUEST_URI'],
+                                              $url,
                                               $this->_next) ]),
             atag('title', [], ['DemoInfo']),
             comment('Bootstrap'),

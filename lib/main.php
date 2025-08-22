@@ -44,6 +44,7 @@ class Application {
     
     public function html_head(): void
     {
+        header('Cache-Control: no-cache');
         $url = strtok($_SERVER['REQUEST_URI'], '?');
         
         print "<!DOCTYPE html>";
@@ -106,7 +107,10 @@ class Application {
         global $pages;
         if ($this->_id) {
             if (file_exists($pages[$this->_id]['app'])) {
-                return eval('?>' . file_get_contents($pages[$this->_id]['app']));
+                ob_start();
+                eval('?>' . file_get_contents($pages[$this->_id]['app']));
+                $result = ob_get_clean();
+                return $result;
             }
         }
         return '';

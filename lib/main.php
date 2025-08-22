@@ -143,7 +143,7 @@ class Application {
                         ]),
                     ]),
                 ]),
-                atag('div', ['class' => 'alert-success'], [
+                atag('div', ['class' => 'alert alert-primary'], [
                     $file
                 ]),
             ]),

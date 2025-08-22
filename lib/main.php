@@ -35,22 +35,24 @@ class Application {
         }
     }
     public function dumpHtml(): void {
-        $this->html_header();
+        $this->html_head();
         $this->html_body();
-        $this->html_footer();
     }
 
     
-    public function html_header(): void
+    public function html_head(): void
     {
         print "<!DOCTYPE html>";
         print atag('html', ['lang' => 'en']);
         print atag('head', [], [
             tag('meta', ['charset' => 'utf-8']),
             tag('meta', ['name' => 'viewport',
-                          'content' => 'width=device-width, initial-scale=1']),
+                         'content' => 'width=device-width, initial-scale=1']),
             tag('link', ['rel' => 'icon', 'type' => 'image/x-icon',
-                          'href' => 'img/logo.ico']),
+                         'href' => 'img/logo.ico']),
+            comment('Do automatic refresh to next page'),
+            tag('meta', ['http-equiv' => 'refresh',
+                         'content' => '15; url=?next=' . $this->_next ]),
             atag('title', [], ['DemoInfo']),
             comment('Bootstrap'),
             tag('link', ['href' => "https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css",
@@ -63,6 +65,7 @@ class Application {
                 'integrity'=>"sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q",
                 'crossorigin'=>"anonymous"
             ]),
+            comment('Custom stylesheet'),
             atag('link', ['rel' => 'stylesheet',
                           'href' => 'css/style.css'],
                  []),
@@ -89,40 +92,42 @@ class Application {
         */
     }
 
-    public function html_footer(): void
-    {
-        print atag('footer', ['class' => 'footer text-center bg-dark'], [
-            atag('div', ['class' => 'container'], [
-                atag('p', ['class' => 'text-muted'], [
-                    '&copy; 2025 Tommi Rintala <em>tommi.rintala@vamk.fi</em>'
-                ])
-            ])
-        ]);
-    }
+
 
     public function html_body(): void
     {
         global $pages;
-        print atag('body', ['class' => 'text-center text-bg-light'], [
-            atag('div', ['class' => 'container page-header'], [
-                atag('h1', ['class' => 'h1'], [
-                    $pages[$this->_id]['title'] 
-                ]),
-                atag('p', ['class' => 'lead'], [
-                    $pages[$this->_id]['content'] ]),
-                atag('div', ['class' => 'row'], [
-                    atag('div', ['class' => 'col-2'], [ 'This page' ]),
-                    atag('div', ['class' => 'col-4'], [ 'index='. $this->_id ]),
-                    atag('div', ['class' => 'col-4'], [ $pages[$this->_id]['id'] ]),
-                ]),
-                atag('div', ['class' => 'row'], [
-                    atag('div', ['class' => 'col-2'], [ 'Next page' ]),
-                    atag('div', ['class' => 'col-4'], [ '' ]),
-                    atag('div', ['class' => 'col-4'], [
-                        atag('a', ['href' => '?next=' . $this->_next ], [ $this->_next ])
+        print
+            atag('body', ['class' => 'text-center text-bg-light'], [
+                atag('main', ['class' => 'px-3'], [
+                    atag('div', ['class' => 'container page-header'], [
+                        atag('h1', ['class' => 'h1'], [
+                            $pages[$this->_id]['title'] 
+                        ]),
+                        atag('p', ['class' => 'lead'], [
+                            $pages[$this->_id]['content'] ]),
+                        atag('div', ['class' => 'row'], [
+                            atag('div', ['class' => 'col-2'], [ 'This page' ]),
+                            atag('div', ['class' => 'col-4'], [ 'index='. $this->_id ]),
+                            atag('div', ['class' => 'col-4'], [ $pages[$this->_id]['id'] ]),
+                        ]),
+                        atag('div', ['class' => 'row'], [
+                            atag('div', ['class' => 'col-2'], [ 'Next page' ]),
+                            atag('div', ['class' => 'col-4'], [ '' ]),
+                            atag('div', ['class' => 'col-4'], [
+                                atag('a', ['href' => '?next=' . $this->_next ], [ $this->_next ])
+                            ]),
+                        ]),
                     ]),
                 ]),
-            ]),
-        ]);
+
+                atag('footer', ['class' => 'footer text-center bg-light'], [
+                    atag('div', ['class' => 'container'], [
+                        atag('p', ['class' => 'text-muted'], [
+                            '&copy; 2025 Tommi Rintala <em>tommi.rintala@vamk.fi</em>'
+                        ])
+                    ])
+                ]);
+            ]);
     }
 }

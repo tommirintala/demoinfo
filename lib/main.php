@@ -136,14 +136,14 @@ class Application {
                 atag('p', [], [
                     $pages[$this->_id]['content'] ]),
                 atag('div', ['class' => 'row'], [
-                    atag('div', ['class' => 'col-3'], [ 'This page' ]),
-                    atag('div', ['class' => 'col-3'], [ $this->_id ]),
-                    atag('div', ['class' => 'col-3'], [ $pages[$this->_id]['id'] ]),
+                    atag('div', ['class' => 'col-2'], [ 'This page' ]),
+                    atag('div', ['class' => 'col-4'], [ $this->_id ]),
+                    atag('div', ['class' => 'col-4'], [ $pages[$this->_id]['id'] ]),
                 ]),
                 atag('div', ['class' => 'row'], [
-                    atag('div', ['class' => 'col-3'], [ 'Next page' ]),
-                    atag('div', ['class' => 'col-3'], [ '' ]),
-                    atag('div', ['class' => 'col-3'], [ $this->_next ]),
+                    atag('div', ['class' => 'col-2'], [ 'Next page' ]),
+                    atag('div', ['class' => 'col-4'], [ '' ]),
+                    atag('div', ['class' => 'col-4'], [ $this->_next ]),
                 ]),
             ]),
         ]);

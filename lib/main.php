@@ -1,43 +1,14 @@
 <?php
-require_once "lib/pages.php";
 
-function comment($content): string
-{
-    return "<!-- $content -->\n";
-}
-function tag($name, $attrs = []): string
-{
-    $result = "<$name";
-    foreach ($attrs as $id => $value) {
-        $result .= " $id=\"$value\"";
-    }
-    $result .= ">\n";
-    //foreach ($content as $block) {
-    //    $result .= $block . "\n";
-    //}
-    //$result .= "</$name>\n";
-    return $result;
-}
-function atag($name, $attrs = [], $content = []): string
-{
-    $result = "<$name";
-    foreach ($attrs as $id => $value) {
-        $result .= " $id=\"$value\"";
-    }
-    $result .= ">\n";
-    foreach ($content as $block) {
-        $result .= $block . "\n";
-    }
-    $result .= "</$name>\n";
-    return $result;
-}
+require_once "lib/pages.php";
+require_once "lib/htmlfuncs.php";
 
 
 class Application {
-    private $_next = null;
-    private $_id;
-    private $_content;
-    public function __construct($next = '') {
+    private string $_next = null;
+    private int $_id;
+    private string $_content;
+    public function __construct(string $next = '') {
         global $pages;
         $flag = false;
         if ($next == '' or is_null($next)) {
@@ -63,14 +34,14 @@ class Application {
             }
         }
     }
-    public function dumpHtml() {
+    public function dumpHtml(): void {
         $this->html_header();
         $this->html_body();
         $this->html_footer();
     }
 
     
-    public function html_header()
+    public function html_header(): void
     {
         print "<!DOCTYPE html>";
         print atag('html', ['lang' => 'en']);

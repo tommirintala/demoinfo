@@ -91,7 +91,7 @@ class Application {
 
     public function html_footer(): void
     {
-        print atag('footer', ['class' => 'footer'], [
+        print atag('footer', ['class' => 'footer text-center'], [
             atag('div', ['class' => 'container'], [
                 atag('p', ['class' => 'text-muted'], [
                     '&copy; 2025 Tommi Rintala <em>tommi.rintala@vamk.fi</em>'

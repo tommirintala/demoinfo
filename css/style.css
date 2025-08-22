@@ -3,3 +3,8 @@ div.col-2,
 div.col-4 {
     border: solid 1px #cfcfcf;
 }
+
+footer {
+    text-align: center;
+    width: 90%;
+}

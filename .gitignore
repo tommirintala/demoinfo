@@ -21,3 +21,5 @@
 /fuel/app/config/crypt.php
 
 app/storage/**
+
+*~

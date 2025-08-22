@@ -8,7 +8,8 @@ class Application {
     private ?string $_next = null;
     private int $_id;
     private string $_content;
-    public function __construct(?string $next = '') {
+    
+    function __construct(?string $next = '') {
         global $pages;
         $flag = false;
         if ($next == '' or is_null($next)) {
@@ -107,6 +108,7 @@ class Application {
                     atag('h1', ['class' => 'h1'], [
                         $pages[$this->_id]['title'] 
                     ]),
+                    atag('div', ['class' => 'container', 'id' => 'clock'], []),
                     atag('p', ['class' => 'lead'], [
                         $pages[$this->_id]['content'] ]),
                     atag('div', ['class' => 'row'], [

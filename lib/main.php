@@ -99,11 +99,23 @@ class Application {
           <?php
         */
     }
-    
+
+    private function findAppFile()
+    {
+        global $pages;
+        if ($this->_id) {
+            if (file_exists($pages[$this->_id]['app'])) {
+                return file_get_contents($pages[$this->_id]['app']);
+            }
+        }
+        return '';
+    }
 
     public function html_body(): void
     {
         global $pages;
+        $file = $this->findAppFile();
+        
         print atag('body', ['class' => 'text-center text-bg-light'], [
             atag('main', ['class' => 'px-3'], [
                 atag('div', ['class' => 'container page-header'], [
@@ -125,6 +137,9 @@ class Application {
                             atag('a', ['href' => '?next=' . $this->_next ], [ $this->_next ])
                         ]),
                     ]),
+                ]),
+                atag('div', ['class' => 'container app'], [
+                    $file
                 ]),
             ]),
 

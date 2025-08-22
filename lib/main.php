@@ -3,6 +3,7 @@
 require_once "lib/pages.php";
 require_once "lib/htmlfuncs.php";
 
+define('REFRESH_SECONDS', 30);
 
 class Application {
     private ?string $_next = null;
@@ -54,7 +55,7 @@ class Application {
                          'href' => 'img/logo.ico']),
             comment('Do automatic refresh to next page'),
             tag('meta', ['http-equiv' => 'refresh',
-                         'content' => sprintf("%d; url=%s?next=%s", 15,
+                         'content' => sprintf("%d; url=%s?next=%s", REFRESH_SECONDS,
                                               $url,
                                               $this->_next) ]),
             atag('title', [], ['DemoInfo']),

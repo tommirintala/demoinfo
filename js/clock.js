@@ -1,7 +1,7 @@
-var timeout = 30;
+var timeout = 29;
 function showTime() {
     let elem = document.getElementById('clock');
-    elem.innerHTML = timeout;
+    elem.innerHTML = "Refresh in: " + timeout;
     timeout--;
 }
 

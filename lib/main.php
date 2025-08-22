@@ -91,7 +91,10 @@ class Application {
                 'src'=>"https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js",
                 'integrity'=>"sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q",
                 'crossorigin'=>"anonymous"
-            ]),            
+            ]),
+            atag('link', ['rel' => 'stylesheet',
+                          'src' => 'css/style.css'],
+                 []),
         ]);
         /*
         <html lang="en">
@@ -138,7 +141,7 @@ class Application {
                     $pages[$this->_id]['content'] ]),
                 atag('div', ['class' => 'row'], [
                     atag('div', ['class' => 'col-2'], [ 'This page' ]),
-                    atag('div', ['class' => 'col-4'], [ $this->_id ]),
+                    atag('div', ['class' => 'col-4'], [ 'index='. $this->_id ]),
                     atag('div', ['class' => 'col-4'], [ $pages[$this->_id]['id'] ]),
                 ]),
                 atag('div', ['class' => 'row'], [

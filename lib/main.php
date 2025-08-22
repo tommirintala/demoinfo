@@ -93,7 +93,7 @@ class Application {
                 'crossorigin'=>"anonymous"
             ]),
             atag('link', ['rel' => 'stylesheet',
-                          'src' => 'css/style.css'],
+                          'href' => 'css/style.css'],
                  []),
         ]);
         /*

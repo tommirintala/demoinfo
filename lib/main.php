@@ -43,7 +43,7 @@ class Application {
         if ($next == '' or is_null($next)) {
             $flag = true;
             $this->_id = 0;
-            $this->_next = $pages[0]['id'];
+            $this->_next = $pages[1]['id'];
             $this->_content = $pages[0]['content'];
         } else {
             foreach ($pages as $id => $payload) {

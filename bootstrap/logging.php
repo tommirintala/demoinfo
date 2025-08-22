@@ -5,7 +5,7 @@ use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 
-$stream = new StreamHandler('/tmp/demo_app.log', Level::Debug);
+$stream = new StreamHandler('/tmp/demo_app_'.PHP_SAPI.'.log', Level::Debug);
 $firephp = new FirePHPHandler();
 
 $logger = new Logger('demoinfo');

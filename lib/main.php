@@ -5,10 +5,10 @@ require_once "lib/htmlfuncs.php";
 
 
 class Application {
-    private string $_next = null;
+    private ?string $_next = null;
     private int $_id;
     private string $_content;
-    public function __construct(string $next = '') {
+    public function __construct(?string $next = '') {
         global $pages;
         $flag = false;
         if ($next == '' or is_null($next)) {

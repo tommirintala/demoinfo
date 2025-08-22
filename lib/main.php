@@ -128,6 +128,7 @@ class Application {
 
     public function html_body(): void
     {
+        global $pages;
         print atag('body', ['class' => 'light-bg'], [
             atag('div', ['class' => 'container'], [
                 atag('h1', ['class' => 'h1'], [
@@ -143,7 +144,9 @@ class Application {
                 atag('div', ['class' => 'row'], [
                     atag('div', ['class' => 'col-2'], [ 'Next page' ]),
                     atag('div', ['class' => 'col-4'], [ '' ]),
-                    atag('div', ['class' => 'col-4'], [ $this->_next ]),
+                    atag('div', ['class' => 'col-4'], [
+                        atag('a', ['href' => '?next=' . $this->_next ], [ $this->_next ])
+                    ]),
                 ]),
             ]),
         ]);

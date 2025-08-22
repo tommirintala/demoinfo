@@ -106,7 +106,7 @@ class Application {
         global $pages;
         if ($this->_id) {
             if (file_exists($pages[$this->_id]['app'])) {
-                return eval(file_get_contents($pages[$this->_id]['app']));
+                return eval('?>' . file_get_contents($pages[$this->_id]['app']));
             }
         }
         return '';

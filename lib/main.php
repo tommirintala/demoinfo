@@ -103,12 +103,12 @@ class Application {
     public function html_body(): void
     {
         global $pages;
-        print atag('body', ['class' => 'd-flex h-100 text-center text-bg-dark'], [
-            atag('div', ['class' => 'container'], [
+        print atag('body', ['class' => 'text-center text-bg-light'], [
+            atag('div', ['class' => 'container page-header'], [
                 atag('h1', ['class' => 'h1'], [
                     $pages[$this->_id]['title'] 
                 ]),
-                atag('p', [], [
+                atag('p', ['class' => 'lead'], [
                     $pages[$this->_id]['content'] ]),
                 atag('div', ['class' => 'row'], [
                     atag('div', ['class' => 'col-2'], [ 'This page' ]),

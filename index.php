@@ -8,7 +8,7 @@ require_once "lib/main.php";
 
 
 
-$next = isset($_GET['next']) ? $_GET['next'] : isset($_POST['next']) ? $_POST['next'] : '';
+$next = isset($_GET['next']) ? $_GET['next'] : (isset($_POST['next']) ? $_POST['next'] : '');
 
 $app = new Application($next);
 $app->dumpHtml();

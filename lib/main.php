@@ -44,7 +44,8 @@ class Application {
     
     public function html_head(): void
     {
-        $url = str_replace($_SERVER['REQUEST_QUERY'], '', $_SERVER['REQUEST_URI']);
+        $url = strtok($_SERVER['REQUEST_URI'], '?');
+        
         print "<!DOCTYPE html>";
         print '<html lang="en">';
         print atag('head', [], [
@@ -105,7 +106,7 @@ class Application {
         global $pages;
         if ($this->_id) {
             if (file_exists($pages[$this->_id]['app'])) {
-                return file_get_contents($pages[$this->_id]['app']);
+                return eval(file_get_contents($pages[$this->_id]['app']));
             }
         }
         return '';

@@ -1,4 +1,4 @@
-<?ph
+<?php
 
 /*
   Copyright 2025 Tommi Rintala <tommi.rintala@vamk.fi>

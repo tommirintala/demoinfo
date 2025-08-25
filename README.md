@@ -8,26 +8,26 @@ The architecture is simplified, the actual use case is following:
 ## Sub module
 The platform provides simple API, which allows the sub module to register to server. Student implements a simple application, which retrieves data, does simple data handling and visualizes the data. This implementation is done as single PHP module (aka sub module).
 
-Sub module is installed (copied) into _apps_ folder. In this version the sub module requires registration to be carried out manually by modifying the _lib/pages.php_ -file. There should be entry for each module.
+Sub module is installed (copied) into `apps` folder. In this version the sub module requires registration to be carried out manually by modifying the `lib/pages.php` -file. There should be entry for each module.
 
 ## InfoTV service
-The InfoTV service is just _index.php_ -page. There are two use cases:
-   # it is called (GET/POST) without parameters. In this case the first sub module from registered apps is shown.
-   # it is called with parameter _next_, which contains the _uuid_ of sub module to be shown.
+The InfoTV service is just `index.php` -page. There are two use cases:
+   1 it is called (GET/POST) without parameters. In this case the first sub module from registered apps is shown.
+   2 it is called with parameter `next`, which contains the `uuid` of sub module to be shown.
 
-The service will return the rendered HTML page with auto-refresh to next sub module, via _next_ id. So, this _index.php_ -page can be set as default page for web browser, and browser rotates the array of sub modules. When it arrives to last sub module, it will be started from first again.
+The service will return the rendered HTML page with auto-refresh to next sub module, via `next` id. So, this `index.php` -page can be set as default page for web browser, and browser rotates the array of sub modules. When it arrives to last sub module, it will be started from first again.
 
 # To begin
 
-Run '''composer refresh'''
+Run `composer refresh`
 
 # Lint
 
 There is default configuration for PHPStan in place, ie.:
 
-"""
+```
 ./vendor/bin/phpstan analyse
-"""
+```
 
 # To real application
 

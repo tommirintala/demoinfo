@@ -28,7 +28,8 @@ function showTime() {
 }
 
 /**
- * On page load, set interval loader (for next page)
+ * On page load, set interval loader to update time display on page.
+ * This is done every second.
  */
 document.addEventListener("DOMContentLoaded", (event) => {
     setInterval(showTime, 1000);    

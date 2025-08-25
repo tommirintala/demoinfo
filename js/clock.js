@@ -15,13 +15,21 @@
   limitations under the License.
  */
 
+/*  Default next refresh time. Since loading of page takes almost 1s. */
 var timeout = 29;
+
+/**
+ * Show the next refresh timer in 'clock' -element.
+ */
 function showTime() {
     let elem = document.getElementById('clock');
     elem.innerHTML = "Refresh in: " + timeout;
     timeout--;
 }
 
+/**
+ * On page load, set interval loader (for next page)
+ */
 document.addEventListener("DOMContentLoaded", (event) => {
     setInterval(showTime, 1000);    
 });

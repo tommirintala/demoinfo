@@ -12,8 +12,8 @@ Sub module is installed (copied) into `apps` folder. In this version the sub mod
 
 ## InfoTV service
 The InfoTV service is just `index.php` -page. There are two use cases:
-   1 it is called (GET/POST) without parameters. In this case the first sub module from registered apps is shown.
-   2 it is called with parameter `next`, which contains the `uuid` of sub module to be shown.
+   1. it is called (GET/POST) without parameters. In this case the first sub module from registered apps is shown.
+   2. it is called with parameter `next`, which contains the `uuid` of sub module to be shown.
 
 The service will return the rendered HTML page with auto-refresh to next sub module, via `next` id. So, this `index.php` -page can be set as default page for web browser, and browser rotates the array of sub modules. When it arrives to last sub module, it will be started from first again.
 

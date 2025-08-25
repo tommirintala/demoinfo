@@ -23,7 +23,6 @@ function showTime() {
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    console.log("Doc loaded");
     setInterval(showTime, 1000);    
 });
 

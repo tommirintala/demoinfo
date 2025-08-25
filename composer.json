@@ -24,9 +24,6 @@
         "ramsey/uuid": "^4.9"
     },
     "require-dev": {
-	"php": ">=8.1",
-        "monolog/monolog": "^3.9",
-        "ramsey/uuid": "^4.9",
         "phpstan/phpstan": "^2.1",
 	"phpunit/phpunit": "^12.3",
         "phpstan/phpstan-phpunit": "^2.0"

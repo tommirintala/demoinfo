@@ -78,6 +78,12 @@ class Application {
         print '<html lang="en">';
         print atag('head', [], [
             tag('meta', ['charset' => 'utf-8']),
+            tag('meta', ['name' => 'description',
+                         'content' => 'InfoTV Example']),
+            tag('meta', ['name' => 'keywords',
+                         'content' => 'HTML, InfoTV, Example']),
+            tag('meta', ['name' => 'author',
+                         'content' => 'Tommi Rintala']),
             tag('meta', ['name' => 'viewport',
                          'content' => 'width=device-width, initial-scale=1']),
             tag('link', ['rel' => 'icon', 'type' => 'image/x-icon',

@@ -1,7 +1,9 @@
 {
     "require": {
         "monolog/monolog": "^3.9",
-        "ramsey/uuid": "^4.9"
+        "ramsey/uuid": "^4.9",
+        "phpunit/phpunit": "^12.3",
+        "phpstan/phpstan-phpunit": "^2.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1"

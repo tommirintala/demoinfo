@@ -1,0 +1,8 @@
+parameters:
+  level: 6
+  paths:
+    - bootstrap
+    - lib
+    - register.php
+    - index.php
+

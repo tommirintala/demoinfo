@@ -1,10 +1,23 @@
 <?php
 
-function comment(string $content): string
+/**
+ * Create HTML comment tag with content
+ * @param string $content The content inside Comment tag
+ */
+function comment(string $content = ''): string
 {
     return "<!-- $content -->\n";
 }
-function tag(string $name, array $attrs = []): string
+
+/**
+ * Create a html tag.
+ *
+ * @param string $name Tag name
+ * @param array<string, string> $attrs Attribute, value pairs.
+ * @return string The generated content.
+ */
+function tag(string $name = 'meta',
+             array $attrs = []): string
 {
     $result = "<$name";
     foreach ($attrs as $id => $value) {
@@ -13,7 +26,18 @@ function tag(string $name, array $attrs = []): string
     $result .= ">\n";
     return $result;
 }
-function atag(string $name, array $attrs = [], array $content = []): string
+
+/**
+ * Create a html tag with content
+ *
+ * @param string $name Tag name
+ * @param array<string, string> $attrs Attribute, value pairs.
+ * @param array<string> $content Array of content elements used.
+ * @return string The generated html.
+ */
+function atag(string $name = 'div',
+              array $attrs = [],
+              array $content = []): string
 {
     $result = "<$name";
     foreach ($attrs as $id => $value) {

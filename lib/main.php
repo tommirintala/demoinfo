@@ -9,11 +9,16 @@ class Application {
     private ?string $_next = null;
     private int $_id;
     private string $_content;
-    
-    function __construct(?string $next = '') {
+
+    /**
+     * Default constructor
+     *
+     * @param ?string $next The sub module page the app was called for
+     */
+    function __construct(?string $next) {
         global $pages;
         $flag = false;
-        if ($next == '' or is_null($next)) {
+        if (is_null($next) or $next == '') {
             $flag = true;
             $this->_id = 0;
             $this->_next = $pages[1]['id'];
@@ -36,13 +41,19 @@ class Application {
             }
         }
     }
+
+    /**
+     * Dump HTML output
+     */
     public function dumpHtml(): void {
         $this->html_head();
         $this->html_body();
     }
 
-    
-    public function html_head(): void
+    /**
+     * Generate and output to STDOUT the HTML header, with server 'header' parts
+     */
+    private function html_head(): void
     {
         header('Cache-Control: no-cache');
         $url = strtok($_SERVER['REQUEST_URI'], '?');
@@ -80,29 +91,13 @@ class Application {
             atag('script', ['src' => 'js/clock.js'], []),
                 
         ]);
-        /*
-          <html lang="en">
-          <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <meta name="csrf-token" content="{{ csrf_token() }}">
-          <link rel="icon" type="image/x-icon" href="/img/anicare.ico">
-          <title>DemoInfo</title>
-          <!-- Bootstrap -->
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-          <!-- Fonts -->
-          <link rel="preconnect" href="https://fonts.bunny.net">
-          <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
-          
-          <?php
-          ?>
-          </head>
-          <?php
-        */
     }
 
-    private function findAppFile()
+    /**
+     * Locate the sub module (PHP) file, which is responsible for generating the output. 
+     * @return string Evaluated output from sub module.
+     */
+    private function findAppFile(): string
     {
         global $pages;
         if ($this->_id) {
@@ -111,12 +106,17 @@ class Application {
                 eval('?>' . file_get_contents($pages[$this->_id]['app']));
                 $result = ob_get_clean();
                 return $result;
+            } else {
+                return $this->_content;
             }
         }
         return '';
     }
 
-    public function html_body(): void
+    /**
+     * Generate and output the HTML of actual page.
+     */
+    private function html_body(): void
     {
         global $pages;
         $file = $this->findAppFile();

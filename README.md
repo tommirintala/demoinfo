@@ -45,4 +45,19 @@ TODO List, when implementing as real application:
    * Give all variables default values, where appropriate
    * Check all function parameters
    * Write test cases for all functionality
+   
+# New Functionality required
+	* Configuration generation
+	* Display portrait / landscape support
+		* Read the information from Rasbperry HW configuration
+		* Support for applications; landscape equals two columns, portrait equals 2 rows
+	* Management interface; either console or web browser
+		* Authentication for management interface
+	* Pages
+		* Scheduling of pages
+		* Caching of page content
+		* Enable/disable page
+	* Content extractor
+		* Extract HTML tag(s) from web query output; ie. web request will get HTML code, extract certain div -tags, with the content which will be shown.
+	* PHP Module support
 

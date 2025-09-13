@@ -192,7 +192,7 @@ class Application {
             /**
              * Page footer
              */
-            atag('footer', ['class' => 'footer text-center bg-light'], [
+            atag('footer', ['class' => 'text-center'], [
                 atag('div', ['class' => 'container'], [
                     atag('p', ['class' => 'text-muted'], [
                         '&copy; 2025 Tommi Rintala <em>tommi.rintala@vamk.fi</em>'

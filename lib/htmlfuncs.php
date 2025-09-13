@@ -61,7 +61,7 @@ function atag(string $name = 'div',
     }
     $result .= ">\n";
     foreach ($content as $block) {
-        $result .= $block . "\n";
+        $result .= $block; // . "\n";
     }
     $result .= "</$name>\n";
     return $result;

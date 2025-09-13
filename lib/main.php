@@ -72,9 +72,13 @@ class Application {
     private function html_head(): void
     {
         header('Cache-Control: no-cache');
-        $url = strtok($_SERVER['REQUEST_URI'], '?');
+        if (isset($_SERVER['REQUEST_URI'])) {
+            $url = strtok($_SERVER['REQUEST_URI'], '?');
+        } else {
+            $url = "/";
+        }
         
-        print "<!DOCTYPE html>";
+        print "<!DOCTYPE html>\n";
         print '<html lang="en">';
         print atag('head', [], [
             tag('meta', ['charset' => 'utf-8']),
@@ -87,7 +91,7 @@ class Application {
             tag('meta', ['name' => 'viewport',
                          'content' => 'width=device-width, initial-scale=1']),
             tag('link', ['rel' => 'icon', 'type' => 'image/x-icon',
-                         'href' => 'favicon.ico']),
+                         'href' => 'img/favicon.ico']),
             comment('Do automatic refresh to next page'),
             tag('meta', ['http-equiv' => 'refresh',
                          'content' => sprintf("%d; url=%s?next=%s", REFRESH_SECONDS,

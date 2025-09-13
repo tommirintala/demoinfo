@@ -21,6 +21,9 @@ div.col-4 {
 }
 
 footer {
+    background-color: #e0e0e0;
+    position: absolute;
+    bottom: 0px;
     height: 4em;
     width: 90%;
 }

@@ -14,6 +14,11 @@
   limitations under the License.
  */
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 div.col-3,
 div.col-2,
 div.col-4 {
@@ -23,7 +28,8 @@ div.col-4 {
 footer {
     background-color: #e0e0e0;
     position: absolute;
-    bottom: 0px;
-    height: 4em;
-    width: 90%;
+    bottom: 0;
+    height: 60px;
+    line-height: 60px;
+    width: 100%;
 }

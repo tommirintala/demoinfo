@@ -147,6 +147,18 @@ class Application {
     {
         global $pages;
         $file = $this->findAppFile();
+
+        if (getenv('DISPLAY_ORIENTATION') == 'Landscape') {
+            $body = atag('div', ['class' => 'row'], [
+                atag('div', ['class' => 'col-6'], ['col 1']),
+                atag('div', ['class' => 'col-6'], ['col 2'])
+            ]);                         
+        } else {
+            $body = atag('div', ['class' => 'row'], [
+                atag('div', ['class' => 'col-12'], ['row 1 col']),
+                atag('div', ['class' => 'col-12'], ['row 2 col'])                
+            ]);
+        }
         
         print atag('body', ['class' => 'text-center text-bg-light'], [
             atag('main', ['class' => 'px-3'], [
@@ -156,7 +168,9 @@ class Application {
                     ]),
                     atag('div', ['class' => 'container', 'id' => 'clock'], []),
                     atag('p', ['class' => 'lead'], [
-                        $pages[$this->_id]['content'] ]),
+                        // $pages[$this->_id]['content'] ]),
+                        $body,
+                    ]),
                     atag('div', ['class' => 'row'], [
                         atag('div', ['class' => 'col-2'], [ 'This page' ]),
                         atag('div', ['class' => 'col-4'], [ 'index='. $this->_id ]),

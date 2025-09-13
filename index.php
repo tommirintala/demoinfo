@@ -18,6 +18,7 @@
 
 
 require_once "vendor/autoload.php";
+require_once "bootstrap/config.php";
 require_once "bootstrap/logging.php";
 
 require_once "lib/main.php";

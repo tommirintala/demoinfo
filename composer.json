@@ -21,7 +21,8 @@
     "require": {
 	"php": ">=8.1",
         "monolog/monolog": "^3.9",
-        "ramsey/uuid": "^4.9"
+        "ramsey/uuid": "^4.9",
+        "josegonzalez/dotenv": "^4.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1",

@@ -1,6 +1,18 @@
 #!/bin/bash
 
 APP_NAME="InfoTVConfigurator"
+INTERACTIVE=True
+DISPLAY_ORIENTATION="Landscape"
+WT_HEIGHT=18
+
+if [ -f .env ]; then
+    source .env
+    CURRENT_DBHOST=$DB_HOST
+    CURRENT_DBPORT=$DB_PORT
+    CURRENT_DBNAME=$DB_NAME
+    CURRENT_DBUSER=$DB_USER
+    CURRENT_DBPASS=$DB_PASS
+fi
 
 calc_wt_size() {
     # NOTE: it's tempting to redirect stderr to /dev/null, so supress error
@@ -26,7 +38,102 @@ This tool is for configuration of DemoInfoTV application
 }
 
 do_exit() {
+    cat > .env << _EOF_
+# Database configuration
+DB_HOST="$CURRENT_DBHOST"
+DB_PORT="$CURRENT_DBPORT"
+DB_NAME="$CURRENT_DBNAME"
+DB_USER="$CURRENT_DBUSER"
+DB_PASS="$CURRENT_DBPASS"
+# Display orientation   "Landscape" | "Portrait"
+DISPLAY_ORIENTATION="$DISPLAY_ORIENTATION"
+# Use Crontab
+SCHEDULE_CRONTAB="$SCHEDULE_CRONTAB"
+_EOF_
     exit 1
+}
+
+do_crontab() {
+    whiptail --yesno "Enable Crontab?" $USECRONTAB 20 60 2
+    RET=$?
+    if [ $RET -eq 0 ]; then
+	# yes
+	SCHEDULE_CRONTAB="yes"
+    elif [ $RET -eq 1 ]; then
+	# no
+	SCHEDULE_CRONTAB="no"
+    else
+	return $RET
+    fi	
+}
+
+do_orientation() {
+    case "$DISPLAY_ORIENTATION" in
+	"Landscape")
+	    LANDON="ON"
+	    PORTON="OFF"
+	    ;;
+	"Portrait")
+	    LANDON="OFF"
+	    PORTON="ON"
+	    ;;
+	*)
+	    LANDON="ON"
+	    PORTON="OFF"
+    esac
+    
+    if [ "$INTERACTIVE" = True ]; then
+	DISPLAY_ORIENTATION=$(whiptail --radiolist "Display orientation:" 20 60 2 \
+				       "Landscape" "" "$LANDON" \
+				       "Portrait" "" "$PORTON" \
+				       3>&1 1>&2 2>&3)
+    else
+	DISPLAY_ORIENTATION="$1"
+	true
+    fi
+}
+
+do_db_config() {
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_DBHOST=$(whiptail --inputbox "Database server host:" 20 60 "$CURRENT_DBHOST" 3>&1 1>&2 2>&3)
+    else
+	NEW_DBHOST="$1"
+	true
+    fi
+    
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_DBPORT=$(whiptail --inputbox "Database port:" 20 60 "$CURRENT_DBPORT" 3>&1 1>&2 2>&3)
+    else
+	NEW_DBPORT="$1"
+	true
+    fi
+
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_DBNAME=$(whiptail --inputbox "Database name:" 20 60 "$CURRENT_DBNAME" 3>&1 1>&2 2>&3)
+    else
+	NEW_DBNAME="$1"
+	true
+    fi
+
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_DBUSER=$(whiptail --inputbox "Database username:" 20 60 "$CURRENT_DBUSER" 3>&1 1>&2 2>&3)
+    else
+	NEW_DBUSER="$1"
+	true
+    fi
+
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_DBPASS=$(whiptail --passwordbox "Database password:" 20 60 "$CURRENT_DBPASS" 3>&1 1>&2 2>&3)
+    else
+	NEW_DBPASS="$1"
+	true
+    fi
+    
+    CURRENT_DBPORT=$NEW_DBPORT
+    CURRENT_DBHOST=$NEW_DBHOST
+    CURRENT_DBNAME=$NEW_DBNAME
+    CURRENT_DBUSER=$NEW_DBUSER
+    CURRENT_DBPASS=$NEW_DBPASS
 }
 
 ##
@@ -43,6 +150,8 @@ while true; do
 		   --ok-button Select \
 		   "1 Database config" "Configure database connection" \
 		   "2 Page config" "Configure enabled pages" \
+		   "3 Display orientation" "Set display orientation" \
+		   "4 Use Crontab Scheduling" "Enable or disable crontab scheduling" \
 		   "9 About configurator" "Information about this configuration tool" \
 		   "0 Exit" "Quit configuration utility" \
 		   3>&1 1>&2 2>&3)
@@ -55,6 +164,8 @@ while true; do
 	case "$FUN" in
 	    1\ *) do_db_config ;;
 	    2\ *) do_page_config ;;
+	    3\ *) do_orientation ;;
+	    4\ *) do_crontab ;;
 	    9\ *) do_about ;;
 	    0\ *) do_exit ;;
 	    *) whiptail --msgbox "Program error: unregognized option" 20 60 1 ;;

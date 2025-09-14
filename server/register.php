@@ -11,6 +11,8 @@ print print_r($url, true);
 if ( $url ) {
     echo "DEBUG: using url = $url";
 
+    $pt = posix_times();
+    $uptime = isset($pt['ticks']) ? $pt['ticks'] : -1;
     $inet = net_get_interfaces();
     print print_r($inet, true);
     $ip = [];
@@ -36,7 +38,8 @@ if ( $url ) {
         CURLOPT_POST => 1,
         CURLOPT_POSTFIELDS => [
             'ip' => join(', ', $ip),
-            'time' => time()
+            'time' => time(),
+            'uptime' => $uptime,
         ],
         CURLOPT_SSL_VERIFYHOST => 0,
         CURLOPT_SSL_VERIFYPEER => 0,

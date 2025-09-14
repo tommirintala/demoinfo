@@ -4,6 +4,7 @@ APP_NAME="InfoTVConfigurator"
 INTERACTIVE=True
 DISPLAY_ORIENTATION="Landscape"
 WT_HEIGHT=18
+REGISTER_URL="http://localhost/demoinfo/server/register.php"
 
 if [ -f .env ]; then
     source .env
@@ -49,6 +50,8 @@ DB_PASS="$CURRENT_DBPASS"
 DISPLAY_ORIENTATION="$DISPLAY_ORIENTATION"
 # Use Crontab
 SCHEDULE_CRONTAB="$SCHEDULE_CRONTAB"
+# Registry service
+REGISTER_URL="$REGISTER_URL"
 _EOF_
     exit 1
 }
@@ -91,6 +94,15 @@ do_orientation() {
 	DISPLAY_ORIENTATION="$1"
 	true
     fi
+}
+
+do_register() {
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_REGISTRY=$(whiptail --inputbox "Registry service URL path:" 20 60 "$REGISTER_URL" 3>&1 1>&2 2>&3)
+    else
+	NEW_REGISTRY="$1"
+    fi
+    REGISTER_URL="$NEW_REGISTRY"
 }
 
 do_db_config() {
@@ -152,8 +164,9 @@ while true; do
 		   "2 Page config" "Configure enabled pages" \
 		   "3 Display orientation" "Set display orientation" \
 		   "4 Use Crontab Scheduling" "Enable or disable crontab scheduling" \
+		   "5 Set registry server" "Set the IP/name of registry server" \
 		   "9 About configurator" "Information about this configuration tool" \
-		   "0 Exit" "Quit configuration utility" \
+		   "0 Exit" "Quit configuration utility and write new configuration" \
 		   3>&1 1>&2 2>&3)
     
     RET=$?
@@ -166,6 +179,7 @@ while true; do
 	    2\ *) do_page_config ;;
 	    3\ *) do_orientation ;;
 	    4\ *) do_crontab ;;
+	    5\ *) do_register ;;
 	    9\ *) do_about ;;
 	    0\ *) do_exit ;;
 	    *) whiptail --msgbox "Program error: unregognized option" 20 60 1 ;;

@@ -5,4 +5,5 @@ parameters:
     - lib
     - register.php
     - index.php
+    - server
 

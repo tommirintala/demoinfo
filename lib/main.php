@@ -146,30 +146,56 @@ class Application {
     private function html_body(): void
     {
         global $pages, $logger;
-        $file = $this->findAppFile();
+        $provider = $this->findAppFile();
         $orientation = strtolower(getenv('DEMOINFO_ORIENTATION'));
         $logger->debug("Current orientation", [getenv('DEMOINFO_ORIENTATION'), $orientation]);
         switch ($orientation) {
         case 'landscape':
-            $body = atag('div', ['class' => 'app-landscape row'], [
-                comment('Display orientation: landscape'),
-                atag('div', ['class' => 'col-12'], [
-                    $pages[$this->_id]['content'],
-                ]),
-                
-                    
-                /*
-                  atag('div', ['class' => 'col-6'], ['']),
-                  atag('div', ['class' => 'col-6'], ['col 2'])
-                */
-            ]);
+            /**
+             * application has requested two cell output
+             */
+            if (isset($pages[$this->_id]['cols']) && $pages[$this->_id]['cols'] == 2) {
+                $body = atag('div', ['class' => 'app-landscape row'], [
+                    comment('Display orientation: landscape'),
+                    atag('div', ['class' => 'col-6'], [
+                        $pages[$this->_id]['content'],
+                    ]),
+                    atag('div', ['class' => 'col-6'], [
+                        $pages[$this->_id]['content1'],
+                    ]),
+                ]);
+            } else {
+                // Application has not requested two-col, therefore single column
+                $body = atag('div', ['class' => 'app-landscape row'], [
+                    comment('Display orientation: landscape'),
+                    atag('div', ['class' => 'col-12'], [
+                        $pages[$this->_id]['content'],
+                    ]),                                   
+                ]);
+            }
             break;
         case 'portrait':
-            $body = atag('div', ['class' => 'app-portrait row'], [
-                comment('Display orientation: portrait'),
-                atag('div', ['class' => 'col-12'], ['row 1 col']),
-                atag('div', ['class' => 'col-12'], ['row 2 col'])                
-            ]);
+            /**
+             * application has requested two cell output
+             */
+            if (isset($pages[$this->_id]['cols']) && $pages[$this->_id]['cols'] == 2) {                
+                $body = atag('div', ['class' => 'app-portrait row'], [
+                    comment('Display orientation: portrait'),
+                    atag('div', ['class' => 'col-12'], [
+                        $pages[$this->_id]['content'],
+                    ]),
+                    atag('div', ['class' => 'col-12'], [
+                        $pages[$this->_id]['content1']
+                    ]),                
+                ]);
+            } else {
+                $body = atag('div', ['class' => 'app-portrait row'], [
+                    comment('Display orientation: portrait'),
+                    atag('div', ['class' => 'col-12'], [
+                        $pages[$this->_id]['content'],
+                    ]),
+                ]);
+            }
             break;
         default:
             $body = atag('div', ['class' => 'app row'], [

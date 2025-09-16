@@ -1,0 +1,11 @@
+Source: demoinfo
+Maintainer: Tommi Rintala <tommi.rintala@vamk.fi>
+Section: misc
+Priority: optional
+Standards-Version: 4.7.0
+
+Package: demoinfo
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, php, mysql
+Description: Simple InfoTV Service
+ This package contains simple PHP implemented InfoTV software.

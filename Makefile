@@ -26,10 +26,17 @@ clean:
 
 pkg:
 	mkdir -p $(PKGDIR)/debian
+	cp -r index.php composer.json composer.lock apps bootstrap css img lib server $(PKGDIR)
+
 	bash ./tools/git2debchangelog.sh > $(PKGDIR)/debian/changelog
 	cp crontab/crontab.demoinfo $(PKGDIR)/debian/demoinfo.cron
 	cp debian/rules $(PKGDIR)/debian/rules
+	cp debian/control $(PKGDIR)/debian/control
+	mkdir -p $(PKGDIR)/debian/source
+	echo "3.0 (quilt)" > $(PKGDIR)/debian/source/format
 	cd $(PKGDIR)
-	debuild -i -us -uc -b
+	# debuild -i -us -uc -b
+	debuild -us -uc
+
 
 

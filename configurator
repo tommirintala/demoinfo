@@ -1,18 +1,20 @@
 #!/bin/bash
 
+# define default values
 APP_NAME="InfoTVConfigurator"
 INTERACTIVE=True
-DISPLAY_ORIENTATION="Landscape"
+ORIENTATION="Landscape"
 WT_HEIGHT=18
-REGISTER_URL="http://localhost/demoinfo/server/register.php"
+REGURL="http://localhost/demoinfo/server/register.php"
+LOGFILE="/tmp/demoinfo-app.log"
 
 if [ -f .env ]; then
     source .env
-    CURRENT_DBHOST=$DB_HOST
-    CURRENT_DBPORT=$DB_PORT
-    CURRENT_DBNAME=$DB_NAME
-    CURRENT_DBUSER=$DB_USER
-    CURRENT_DBPASS=$DB_PASS
+    CURRENT_DBHOST=$DBHOST
+    CURRENT_DBPORT=$DBPORT
+    CURRENT_DBNAME=$DBNAME
+    CURRENT_DBUSER=$DBUSER
+    CURRENT_DBPASS=$DBPASS
 fi
 
 calc_wt_size() {
@@ -41,37 +43,42 @@ This tool is for configuration of DemoInfoTV application
 do_exit() {
     cat > .env << _EOF_
 # Database configuration
-DB_HOST="$CURRENT_DBHOST"
-DB_PORT="$CURRENT_DBPORT"
-DB_NAME="$CURRENT_DBNAME"
-DB_USER="$CURRENT_DBUSER"
-DB_PASS="$CURRENT_DBPASS"
+DBHOST="$CURRENT_DBHOST"
+DBPORT="$CURRENT_DBPORT"
+DBNAME="$CURRENT_DBNAME"
+DBUSER="$CURRENT_DBUSER"
+DBPASS="$CURRENT_DBPASS"
+
 # Display orientation   "Landscape" | "Portrait"
-DISPLAY_ORIENTATION="$DISPLAY_ORIENTATION"
+ORIENTATION="$ORIENTATION"
+
 # Use Crontab
-SCHEDULE_CRONTAB="$SCHEDULE_CRONTAB"
+CRONTAB="$CRONTAB"
+
 # Registry service
-REGISTER_URL="$REGISTER_URL"
+REGURL="$REGURL"
+
+# end-of-config-file
 _EOF_
     exit 1
 }
 
 do_crontab() {
-    whiptail --yesno "Enable Crontab?" $USECRONTAB 20 60 2
+    whiptail --yesno "Enable Crontab?" $CRONTAB 20 60 2
     RET=$?
     if [ $RET -eq 0 ]; then
 	# yes
-	SCHEDULE_CRONTAB="yes"
+	CRONTAB="yes"
     elif [ $RET -eq 1 ]; then
 	# no
-	SCHEDULE_CRONTAB="no"
+	CRONTAB="no"
     else
 	return $RET
     fi	
 }
 
 do_orientation() {
-    case "$DISPLAY_ORIENTATION" in
+    case "$ORIENTATION" in
 	"Landscape")
 	    LANDON="ON"
 	    PORTON="OFF"
@@ -86,23 +93,32 @@ do_orientation() {
     esac
     
     if [ "$INTERACTIVE" = True ]; then
-	DISPLAY_ORIENTATION=$(whiptail --radiolist "Display orientation:" 20 60 2 \
-				       "Landscape" "" "$LANDON" \
-				       "Portrait" "" "$PORTON" \
-				       3>&1 1>&2 2>&3)
+	ORIENTATION=$(whiptail --radiolist "Display orientation:" 20 60 2 \
+					"Landscape" "" "$LANDON" \
+					"Portrait" "" "$PORTON" \
+					3>&1 1>&2 2>&3)
     else
-	DISPLAY_ORIENTATION="$1"
+	ORIENTATION="$1"
 	true
     fi
 }
 
 do_register() {
     if [ "$INTERACTIVE" = True ]; then
-	NEW_REGISTRY=$(whiptail --inputbox "Registry service URL path:" 20 60 "$REGISTER_URL" 3>&1 1>&2 2>&3)
+	NEW_REGISTRY=$(whiptail --inputbox "Registry service URL path:" 20 60 "$REGURL" 3>&1 1>&2 2>&3)
     else
 	NEW_REGISTRY="$1"
     fi
-    REGISTER_URL="$NEW_REGISTRY"
+    REGURL="$NEW_REGISTRY"
+}
+
+do_logfile() {
+    if [ "$INTERACTIVE" = True ]; then
+	NEW_LOGFILE=$(whiptail --inputbox "Logfile to be used:" 20 60 "$LOGFILE" 3>&1 1>&2 2>&3)
+    else
+	NEW_LOGFILE="$1"
+    fi
+    LOGFILE="$NEW_LOGFILE"
 }
 
 do_db_config() {

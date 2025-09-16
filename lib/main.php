@@ -145,32 +145,62 @@ class Application {
      */
     private function html_body(): void
     {
-        global $pages;
+        global $pages, $logger;
         $file = $this->findAppFile();
-
-        if (getenv('DISPLAY_ORIENTATION') == 'Landscape') {
-            $body = atag('div', ['class' => 'row'], [
-                atag('div', ['class' => 'col-6'], ['col 1']),
-                atag('div', ['class' => 'col-6'], ['col 2'])
-            ]);                         
-        } else {
-            $body = atag('div', ['class' => 'row'], [
+        $orientation = strtolower(getenv('DEMOINFO_ORIENTATION'));
+        $logger->debug("Current orientation", [getenv('DEMOINFO_ORIENTATION'), $orientation]);
+        switch ($orientation) {
+        case 'landscape':
+            $body = atag('div', ['class' => 'app-landscape row'], [
+                comment('Display orientation: landscape'),
+                atag('div', ['class' => 'col-12'], [
+                    $pages[$this->_id]['content'],
+                ]),
+                
+                    
+                /*
+                  atag('div', ['class' => 'col-6'], ['']),
+                  atag('div', ['class' => 'col-6'], ['col 2'])
+                */
+            ]);
+            break;
+        case 'portrait':
+            $body = atag('div', ['class' => 'app-portrait row'], [
+                comment('Display orientation: portrait'),
                 atag('div', ['class' => 'col-12'], ['row 1 col']),
                 atag('div', ['class' => 'col-12'], ['row 2 col'])                
             ]);
+            break;
+        default:
+            $body = atag('div', ['class' => 'app row'], [
+                comment('Display orientation: other/unknown'),
+                atag('div', ['class' => 'col-6'], ['col 1']),
+                atag('div', ['class' => 'col-6'], ['col 2'])
+            ]);            
         }
         
         print atag('body', ['class' => 'text-center text-bg-light'], [
+            atag('header', ['class' => 'd-flex flex-wrap justify-content-center py-3 mb-4 border-bottom'], [
+                tag('img', ['src' => 'https://www.vamk.fi/wp-content/themes/design-by-buorre-child-vamk/img/vamk_logo_notext.svg',
+                            'id' => 'logo',
+                            'class' => 'd-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none',
+                            'width' => '122']),
+                atag('ul', ['class' => 'nav nav-pills'], [
+                    atag('li', ['class' => 'nav-item nav-link active'], ['Vaasan Ammattikorkeakoulu']),
+                    atag('li', ['class' => 'nav-item nav-link'], ['Vaasa University of Applied Sciences']),
+                    atag('li', ['class' => 'nav-item nav-link', 'id' => 'clock'], [ '' ]),
+                ]),
+            ]),
             atag('main', ['class' => 'px-3'], [
                 atag('div', ['class' => 'container page-header'], [
                     atag('h1', ['class' => 'h1'], [
                         $pages[$this->_id]['title'] 
                     ]),
-                    atag('div', ['class' => 'container', 'id' => 'clock'], []),
                     atag('p', ['class' => 'lead'], [
                         // $pages[$this->_id]['content'] ]),
                         $body,
                     ]),
+                    /*
                     atag('div', ['class' => 'row'], [
                         atag('div', ['class' => 'col-2'], [ 'This page' ]),
                         atag('div', ['class' => 'col-4'], [ 'index='. $this->_id ]),
@@ -183,10 +213,13 @@ class Application {
                             atag('a', ['href' => '?next=' . $this->_next ], [ $this->_next ])
                         ]),
                     ]),
+                    */
                 ]),
+                /*
                 atag('div', ['class' => 'alert alert-primary'], [
                     $file
                 ]),
+                */
             ]),
 
             /**

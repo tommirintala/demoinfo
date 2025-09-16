@@ -27,7 +27,6 @@ $logger = new Logger('demoinfo');
 $logger->pushHandler($stream);
 $logger->pushHandler($firephp);
 
-
 $security = new Logger('security');
 $security->pushHandler($stream);
 $security->pushHandler($firephp);

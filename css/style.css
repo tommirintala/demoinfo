@@ -19,10 +19,33 @@ html {
     min-height: 100%;
 }
 
+header {
+    background-color: white;
+}
+
 div.col-3,
 div.col-2,
 div.col-4 {
     border: solid 1px #cfcfcf;
+}
+
+div.app-landscape {
+    border: solid 2px black;
+    height: 60vh;
+}
+
+div.app-portrait {
+    height: 30vh;
+    border: solid 2px blue;
+}
+
+div.app {
+    border: solid 2px red;
+}
+
+#logo {
+    width: 122px;
+    margin: 1vh;
 }
 
 footer {

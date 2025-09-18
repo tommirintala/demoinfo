@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # define default values
-APP_NAME="InfoTVConfigurator"
+APPNAME="InfoTVConfigurator"
 INTERACTIVE=True
 ORIENTATION="Landscape"
 WT_HEIGHT=18
 REGURL="http://localhost/demoinfo/server/register.php"
 LOGFILE="/tmp/demoinfo-app.log"
+CLIENTID=$(shell hostid)
 
 if [ -f .env ]; then
     source .env
@@ -42,6 +43,10 @@ This tool is for configuration of DemoInfoTV application
 
 do_exit() {
     cat > .env << _EOF_
+# Application Info
+APPNAME="$APPNAME"
+CLIENTID="$CLIENTID"
+REGURL="$REGURL"
 # Database configuration
 DBHOST="$CURRENT_DBHOST"
 DBPORT="$CURRENT_DBPORT"
@@ -54,9 +59,6 @@ ORIENTATION="$ORIENTATION"
 
 # Use Crontab
 CRONTAB="$CRONTAB"
-
-# Registry service
-REGURL="$REGURL"
 
 # end-of-config-file
 _EOF_
@@ -172,7 +174,7 @@ calc_wt_size
 
 
 while true; do
-    FUN=$(whiptail --title "${APP_NAME} Configurator Utility" \
+    FUN=$(whiptail --title "${APPNAME} Configurator Utility" \
 		   --menu	"Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
 		   --cancel-button Finish \
 		   --ok-button Select \

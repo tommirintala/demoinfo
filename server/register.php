@@ -4,7 +4,10 @@ require_once "vendor/autoload.php";
 require_once "bootstrap/config.php";
 
 $version = system('git describe --tags --abbrev=0');
-$url = getenv('REGISTER_URL', true) ?: getenv('REGISTER_URL');
+$appname = getenv('DEMOINFO_APPNAME', true) ?: getenv('DEMOINFO_APPNAME');
+
+$url = getenv('DEMOINFO_REGURL', true) ?: getenv('DEMOINFO_REGURL');
+$clientid = getenv('DEMOINFO_CLIENTID', true) ?: getenv('DEMOINFO_CLIENTID');
 
 print print_r($url, true);
 
@@ -37,6 +40,9 @@ if ( $url ) {
         CURLOPT_HEADER => 0,
         CURLOPT_POST => 1,
         CURLOPT_POSTFIELDS => [
+            'application' => $appname,
+            'clientid' => $clientid,
+            'version' => $version,
             'ip' => join(', ', $ip),
             'time' => time(),
             'uptime' => $uptime,

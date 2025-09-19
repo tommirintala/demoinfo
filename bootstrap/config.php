@@ -5,10 +5,10 @@ require_once "logging.php";
 if (file_exists('.env')) {
     $logger->info("Using configuration file .env");
     $Loader = (new josegonzalez\Dotenv\Loader('.env'))
-            ->parse()
-            ->prefix('DEMOINFO_')
-            ->toEnv()
-            ->putenv(true);
+        ->parse()
+        ->prefix('DEMOINFO_')
+        ->toEnv()
+        ->putenv(true);
     
     $configuration = $Loader->toArray();
     $logger->debug("Out environment:");

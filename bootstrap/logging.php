@@ -23,6 +23,7 @@ use Monolog\Handler\FirePHPHandler;
 $stream = new StreamHandler('/tmp/demo_app_'.PHP_SAPI.'.log', Level::Debug);
 $firephp = new FirePHPHandler();
 
+/** @var Logger $logger */
 $logger = new Logger('demoinfo');
 $logger->pushHandler($stream);
 $logger->pushHandler($firephp);

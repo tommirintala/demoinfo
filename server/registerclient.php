@@ -1,8 +1,21 @@
 <?php
 
-$time = time();
 
-/** No composer, so we need to write our own config routine */
+
+$time = time();
+/**
+ * @param string $msg
+ * @param array<string> $args
+ */
+function log_sql(string $msg, array $args = []): void {
+    $line = sprintf("DEBUG: $msg [%s]", join(', ', $args));
+    syslog(LOG_DEBUG, $line);
+}
+
+/**
+ * No composer, so we need to write our own config routine
+ * @return array<string, string>
+ */
 function initialize(): array
 {
     $config = [];
@@ -12,13 +25,19 @@ function initialize(): array
     return $config;
 }
 
+/**
+ * @param ?string $str
+ */
 function filter(?string $str): string
 {
     if ($str === null) return "";
-    $str = preg_replace("/[^a-zA-Z0-9:,./-]/", "", $str);
+    $str = preg_replace("/[^a-zA-Z0-9:,.\/-]/", "", $str);
     return $str;
 }
 
+/**
+ * @return array<string, string>
+ */
 function readargs(): array
 {
     $result = [];
@@ -35,17 +54,22 @@ function readargs(): array
     return $result;
 }
 
+/**
+ * @param array<string, string> $x
+ * @param array<string, string> $c
+ */
 function register_client(array $x, array $c): void
 {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $mysqli = new mysqli($x['DB_HOST'], $x['DB_USER'], $x['DB_PASS'], $x['DB_NAME']);
     $sql = "SELECT * FROM registery WHERE clientid='" . $c['clientid'] . "'";
+    log_sql(__METHOD__, [$sql]);
     $result = $mysqli->execute_query($sql);
     if ($result->num_rows> 0) {
         $row = $result->fetch_assoc();
         $id = $row['id]'];
         $sql = sprintf(
-            "UPDATE INTO registery SET updated_at=NOW(), application='%', 'clientid='%s', version='%s', ip='%s', time=%d, uptime=%d WHERE id=%d",
+            "UPDATE INTO registery SET updated_at=NOW(), application='%s', 'clientid='%s', version='%s', ip='%s', time=%d, uptime=%d WHERE id=%d",
             $c['application'],
             $c['clientid'],
             $c['version'],
@@ -65,14 +89,20 @@ function register_client(array $x, array $c): void
             $c['uptime']
         );
     }
+    log_sql(__METHOD__, [$sql]);
     $mysqli->execute_query($sql);
 }
+
+/**
+ * @param array<string,string> $c
+ */
 function show_clients(array $c): void
 {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     $mysqli = new mysqli($c['DB_HOST'], $c['DB_USER'], $c['DB_PASS'], $c['DB_NAME']);
 
     $query = 'SELECT * FROM registery ORDER BY updated_at DESC';
+    log_sql(__METHOD__, [$query]);
     $result = $mysqli->execute_query($query);
 ?>
     <table>

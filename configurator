@@ -7,7 +7,7 @@ ORIENTATION="Landscape"
 WT_HEIGHT=18
 REGURL="http://localhost/demoinfo/server/register.php"
 LOGFILE="/tmp/demoinfo-app.log"
-CLIENTID=$(shell hostid)
+CLIENTID=$(hostid)
 
 if [ -f .env ]; then
     source .env
@@ -112,6 +112,10 @@ do_register() {
 	NEW_REGISTRY="$1"
     fi
     REGURL="$NEW_REGISTRY"
+}
+
+do_page_config() {
+    whiptail --msgbox "Not yet implemented" 20 60
 }
 
 do_logfile() {

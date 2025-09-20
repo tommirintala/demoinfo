@@ -15,6 +15,8 @@
   limitations under the License.
  */
 
+require_once "vendor/autoload.php";
+
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;

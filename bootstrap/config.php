@@ -1,5 +1,6 @@
 <?php
 
+
 require_once "logging.php";
 
 if (file_exists('.env')) {

@@ -41,5 +41,5 @@ pkg:
 
 
 sync:
-	rsync -av ./* .git* /var/www/html/demoinfo/
+	rsync -av --exclude=.git --delete-excluded ./* .git* /var/www/html/demoinfo/
 	# ( cd /var/www/html/demoinfo; composer install )

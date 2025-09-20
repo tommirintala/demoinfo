@@ -25,3 +25,6 @@ app/storage/**
 .env
 
 *~
+
+# Appliaction specific
+/cache/

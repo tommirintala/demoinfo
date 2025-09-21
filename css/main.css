@@ -1,0 +1,45 @@
+body {
+    width: 100%;
+}
+
+frameset {
+    height: 90%;
+    width: 100%;
+    border: solid 1px black;
+}
+
+
+iframe {
+    position: absolute;
+    top: 3.1em;
+    /* height: 90%; */
+    border: solid 1px black;
+    /* width: 98%; */
+    text-align: center;
+}
+
+
+article {
+    width: 98%;
+    height: 100vh;
+}
+
+.header {
+    background-color: #d0d0d0;
+    position: absolute;
+    top: 0;
+    height: 3em;
+    line-height: 3em;
+    width: 98%;
+    border-bottom: solid 1px black;
+}
+
+footer {
+    background-color: #d0d0d0;
+    position: absolute;
+    bottom: 0;
+    height: 3em;
+    line-height: 3em;
+    width: 98%;
+    text-align: center;
+}

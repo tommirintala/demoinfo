@@ -8,6 +8,7 @@ WT_HEIGHT=18
 REGURL="http://localhost/demoinfo/server/register.php"
 LOGFILE="/tmp/demoinfo-app.log"
 CLIENTID=$(hostid)
+REFRESH_TIME=30
 
 if [ -f .env ]; then
     source .env
@@ -47,6 +48,8 @@ do_exit() {
 APPNAME="$APPNAME"
 CLIENTID="$CLIENTID"
 REGURL="$REGURL"
+REFRESH_TIME="$REFRESH_TIME"
+
 # Database configuration
 DBHOST="$CURRENT_DBHOST"
 DBPORT="$CURRENT_DBPORT"

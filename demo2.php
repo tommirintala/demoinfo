@@ -26,9 +26,6 @@ if ($next_id > array_key_last($url_list)) {
     $next_id = array_key_first($url_list);
 }
 
-$hostpath = "http" . (isset($_SERVER['HTTPS']) ? "s" : "") .
-    "://" . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'] ) .
-    strtok($_SERVER['REQUEST_URI'], "?") . "?id=" . $next_id;
 
 
 

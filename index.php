@@ -22,8 +22,11 @@ require_once "bootstrap/config.php";
 
 // require_once "lib/main.php";
 
-header('Access-Control-Allow-Origin: *');
-header('Integrity-Policy-Report-Only: blocked-destinations=(script), endpoints=(integrity-endpoint, some-other-integrity-endpoint)');
+header('Cache-control: No-Cache');
+header('P3P: CP="ALL DSP NID CURa ADMa DEVa HISa OTPa OUR NOR NAV DEM"');
+// header('Access-Control-Allow-Origin: *');
+//header('Integrity-Policy-Report-Only: blocked-destinations=(script), endpoints=(integrity-endpoint, some-other-integrity-endpoint)');
+//header('Content-Security-Policy: default-src https: http:');
 
 if (! defined('DEMOINFO_REFRESH_TIME')) {
     define('DEMOINFO_REFRESH_TIME', 30);
@@ -36,9 +39,10 @@ $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : -1;
  * @return array<int, int>
  */
 function get_next_page(string $id): array {
-    $url_list = [
+    $url_list = [        
         1 => build_host() . '/demoinfo/apps/demo1.php',
         2 => build_host() . '/demoinfo/apps/demo2.php',
+        3 => 'https://thingspeak.mathworks.com/channels/349663',
     ];
     if ($id < array_key_first($url_list)) {
         $id = array_key_first($url_list);

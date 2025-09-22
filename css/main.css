@@ -2,20 +2,23 @@ body {
     width: 100%;
 }
 
+/*
 frameset {
     height: 90%;
-    width: 100%;
+    width: 90%;
     border: solid 1px black;
 }
-
+*/
 
 iframe {
     position: absolute;
     top: 3.1em;
+    left: 0;
+    width: 99%;
     /* height: 90%; */
     border: solid 1px black;
     /* width: 98%; */
-    text-align: center;
+/*    text-align: center; */
 }
 
 
@@ -24,13 +27,22 @@ article {
     height: 100vh;
 }
 
+header {
+    position: absolute;
+    top: 0;
+    background-color: #e0a0b0;
+    border-bottom: solid 2px black;
+    left: 0;
+    width: 100%;
+}
+
 .header {
     background-color: #d0d0d0;
     position: absolute;
     top: 0;
     height: 3em;
     line-height: 3em;
-    width: 98%;
+    /*width: 98%; */
     border-bottom: solid 1px black;
 }
 
@@ -40,6 +52,6 @@ footer {
     bottom: 0;
     height: 3em;
     line-height: 3em;
-    width: 98%;
+    width: 100%;
     text-align: center;
 }
